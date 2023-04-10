@@ -46,3 +46,107 @@ header {
   border: none;
   outline: 0;
 }
+
+form {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  min-height: 87px;
+  padding: 24px;
+
+}
+.wrapper {
+  width: 594px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 35px rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
+  margin: 0 auto;
+
+}
+
+
+.inputTask {
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+  width: 356px;
+  padding: 0 14px;
+}
+
+.addTask {
+  width: 166px;
+  background: #272829;
+  border-radius: 4px;
+ font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #FFFFFF;
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  
+}
+
+#list-container {
+  width: 594px;
+  margin: 0 auto;
+  border-top:  #DEE2E6 solid 1px;
+  padding: 32px 24px;
+  display: none;
+
+}
+
+li {
+  padding: 0px 32px 26px;
+  list-style: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  color: #54595E;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+}
+
+li::before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-image: url(../images/checkboxEmpty.svg);
+  background-size: cover;
+  background-position: center;
+  top: 3px;
+  left: 0px
+}
+
+
+
+li.checked::before {
+  background-image: url(../images/checkboxSelected.svg);
+  background-repeat: no-repeat;
+  text-decoration-line: line-through;
+  color: #54595E;
+}
+
+li.checked {
+  text-decoration-line: line-through;
+  color: #54595E;
+  opacity: 0.5;
+}
+
+span {
+  position: absolute;
+  left: 525px;
+  top: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;  
+}
+span:hover{
+  font-weight: 700;
+
+}
