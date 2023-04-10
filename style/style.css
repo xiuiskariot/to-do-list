@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+body {
+  background: #F5F5F5;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.title {
+  width: 500px;
+  min-height: 70px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 58px;
+  line-height: 70px;
+  color: #000000;
+  background: none;
+  border: none;
+  margin: 80px auto 33px;
+  text-align: center;
+}
+
+.title::placeholder {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 58px;
+  line-height: 70px;
+  color: #000000;
+  opacity: 100;
+}
+
+.title:focus {
+  border: none;
+  outline: 0;
+}
