@@ -1,16 +1,14 @@
 
-
 const form = document.getElementById("task-form"); //получили форму
 const listContainer = document.getElementById("list-container"); //получили ul куда будут добавляться задачи
 
-//получаем из локалсторад содержимое ul и записываем в переменную
-let taskCollector = localStorage.getItem(listContainer);
-
+//получаем из локалсторадж содержимое ul и записываем в переменную
+let taskCollector = localStorage.getItem('listContainer');
 //создаем пустой массив, куда будем добавлять объекты задач
 let taskList = [];
-
 //если область задачи не пустая, то делаем из строкового представления данных в локалстораж нормальный массив с объектами 
 if (taskCollector) taskList = JSON.parse(taskCollector);
+
 
   
   
@@ -39,7 +37,12 @@ function createNewTask(obj) {
   itemTask.append(taskDeleteButton);
 
   listContainer.append(itemTask);  
-  }
+}
+
+for (const task of taskList) {
+  createNewTask(task)
+  console.log(task);
+}
 
 
 //создаем функцию для создания уникального id задачи
@@ -58,7 +61,7 @@ form.addEventListener("submit", (evt) => {
   let taskText = document.getElementById("inputTask").value;
   
   let taskObj = {
-    id: Math.random(), //сюда надо будет вставить функцию getNewId(какой-то массив со всеми задачами ) 30 минута видео
+    id: getNewId(taskList),
     taskValue: taskText,
     status: false,
   };
@@ -66,9 +69,11 @@ form.addEventListener("submit", (evt) => {
   //добавляем объект с задачей в массив 
   taskList.push(taskObj);
 
-  localStorage.setItem('TASK', JSON.stringify(taskList))
 
+  //записывваем с локалстораж под ключом TASK массив объектов задач
+  localStorage.setItem('listContainer', JSON.stringify(taskList))
 
+  console.log(taskList);
   createNewTask(taskObj)
 
   //после добавления задачи в лист поле ввода будет очищаться
