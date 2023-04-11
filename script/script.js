@@ -1,20 +1,17 @@
-
 const form = document.getElementById("task-form"); //получили форму
 const listContainer = document.getElementById("list-container"); //получили ul куда будут добавляться задачи
 
 //получаем из локалсторадж содержимое ul и записываем в переменную
-let taskCollector = localStorage.getItem('listContainer');
+let taskCollector = localStorage.getItem("listContainer");
 //создаем пустой массив, куда будем добавлять объекты задач
 let taskList = [];
-//если область задачи не пустая, то делаем из строкового представления данных в локалстораж нормальный массив с объектами 
+//если область задачи не пустая, то делаем из строкового представления данных в локалстораж нормальный массив с объектами
 if (taskCollector) taskList = JSON.parse(taskCollector);
 
-
-  
-  
 //функция для отрисовки задач
 function createNewTask(obj) {
   listContainer.style.display = "block";
+  document.getElementById("button-wrapper").style.display = "flex";
 
   //создаем текстовое содержимое задачи
   let itemTask = document.createElement("li");
@@ -28,28 +25,52 @@ function createNewTask(obj) {
   taskCheck.setAttribute("type", "checkbox");
   taskCheck.classList.add("checkbox");
   itemTask.append(taskCheck);
+  taskCheck.addEventListener("click", () => {
+    itemTaskText.classList.toggle("checked"); //добавляем класс, чтобы при нажатии текст зачеркивался
 
+    taskList.forEach((el, index, arr) => {
+      if (el.id == obj.id) {
+        arr[index].status = !arr[index].status;
+      }
+      localStorage.setItem("listContainer", JSON.stringify(taskList));
+    });
+  });
 
   //создаем кнопку удаления
   let taskDeleteButton = document.createElement("button");
   taskDeleteButton.textContent = "❌";
   taskDeleteButton.classList.add("deleteTask");
   itemTask.append(taskDeleteButton);
+  taskDeleteButton.addEventListener("click", () => deleteTask(obj.id));
 
-  listContainer.append(itemTask);  
+  return itemTask;
 }
 
-for (const task of taskList) {
-  createNewTask(task)
-  console.log(task);
+// for (const task of taskList) {
+//   createNewTask(task);
+// }
+
+function renderTask(array) {
+  listContainer.innerHTML = '';
+  // localStorage.setItem("listContainer", JSON.stringify(taskList));
+  array.forEach((el) => {
+    listContainer.append(createNewTask(el));
+    localStorage.setItem("listContainer", JSON.stringify(taskList));
+  });
 }
 
+renderTask(taskList)
+
+function deleteTask(id) {
+  taskList.filter((el) => el.id !== id);
+  renderTask();
+}
 
 //создаем функцию для создания уникального id задачи
 function getNewId(arr) {
   let max = 0;
   for (const item of arr) {
-    if (item.id > max) max = item.id
+    if (item.id > max) max = item.id;
   }
   return max + 1;
 }
@@ -59,39 +80,33 @@ form.addEventListener("submit", (evt) => {
 
   //создаем текстовое содержимое задачи
   let taskText = document.getElementById("inputTask").value;
-  
+
   let taskObj = {
     id: getNewId(taskList),
     taskValue: taskText,
     status: false,
   };
 
-  //добавляем объект с задачей в массив 
+  // createNewTask(taskObj);
+
+  //добавляем объект с задачей в массив
   taskList.push(taskObj);
 
+  renderTask(taskList);
 
-  //записывваем с локалстораж под ключом TASK массив объектов задач
-  localStorage.setItem('listContainer', JSON.stringify(taskList))
-
-  console.log(taskList);
-  createNewTask(taskObj)
+  //записывваем с локалстораж массив объектов задач
+  // localStorage.setItem("listContainer", JSON.stringify(taskList));
 
   //после добавления задачи в лист поле ввода будет очищаться
   document.getElementById("inputTask").value = "";
-})
-
-
-
+});
 
 // let input = document.getElementById("inputTask").value;
 
-
 // function createrLi(obj) {
-  
- 
+
 //   let itemTask = document.createElement("li");
 //   itemTask.classList.add("item");
- 
 
 //   itemTask.innerHTML = `<input type="checkbox" id="itemCheck">
 //                         <p>${obj.value}</p>
@@ -99,18 +114,9 @@ form.addEventListener("submit", (evt) => {
 
 // }
 
-
 // document.getElementById('task-form').addEventListener("submit", (evt) => {
 //   evt.preventDefault();
 // })
-
-
-
-
-
-
-
-
 
 // let someObj = {
 //   id: (0.5 - Math.random),
@@ -121,38 +127,12 @@ form.addEventListener("submit", (evt) => {
 // const listContainer = document.getElementById("list-container")
 
 // function drawTaskItem(obj) {
-//   let 
-
-
+//   let
 
 //   taskItem = document.createElement("li");
 //   listContainer.append(taskItem);
 
-  
-
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const form = document.querySelector("form");
 
