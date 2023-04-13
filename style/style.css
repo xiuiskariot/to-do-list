@@ -16,7 +16,6 @@ header {
 }
 
 
-
 .title {
   width: 500px;
   min-height: 70px;
@@ -95,11 +94,13 @@ form {
   /* padding: 32px 24px; */
   padding-top: 32px;
   display: none;
+  flex-direction: column-reverse;
 
 }
 
 .item {
-  padding: 0px 24px 26px;
+  padding: 0px 24px;
+  min-height: 38px;
   list-style: none;
   font-family: 'Inter';
   font-style: normal;
@@ -129,6 +130,16 @@ form {
   margin-right: 16px;
 }
 
+.editButton {
+  background: none;
+  border: none;
+  order: -1;
+  width: 16px;
+  height: 21px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
 .deleteTask {
   width: 16px;
   height: 16px;
@@ -146,6 +157,7 @@ form {
   border-radius: 0px 0px 16px 16px;
   justify-content: space-between;
   display: none;
+  margin-top: 32px;
 }
 
 .deleteAllChecked {
@@ -176,4 +188,19 @@ form {
   font-size: 16px;
   line-height: 19px;
   cursor: pointer;
+}
+
+
+.edit {
+  order: -1;
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+  min-height: 38px;
+  padding: 0 17px;
+  margin-right: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  color: #54595E
 }

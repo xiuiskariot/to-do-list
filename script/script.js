@@ -18,7 +18,7 @@ if (taskCollector) taskList = JSON.parse(taskCollector);
 //функция для отрисовки задач
 function createNewTask(obj) {
 
-  listContainer.style.display = "block";
+  listContainer.style.display = "flex";
   document.getElementById("button-wrapper").style.display = "flex";
  
   //создаем текстовое содержимое задачи
@@ -42,20 +42,49 @@ function createNewTask(obj) {
       if (el.id == obj.id) {
         arr[index].status = !arr[index].status;
       }
-      localStorage.setItem("listContainer", JSON.stringify(taskList));
+      
     });
   });
 
   //создаем кнопку удаления
   let taskDeleteButton = document.createElement("button");
-  taskDeleteButton.textContent = "❌";
+  taskDeleteButton.textContent = "🗑️";
   taskDeleteButton.classList.add("deleteTask");
   itemTask.append(taskDeleteButton);
   taskDeleteButton.addEventListener("click", () => deleteTask(obj.id));
 
+
+  //создаем кнопку редактирования
+  let editButton = document.createElement("button");
+  editButton.textContent = "✏️";
+  editButton.classList.add("editButton")
+  itemTask.append(editButton);
+  editButton.addEventListener("click", () => {
+    editButton.textContent = "✅";
+    taskList.forEach((el, index, arr) => {
+      if (el.id == obj.id) {
+        if (!document.querySelector(".edit")) {
+          let editInput = document.createElement("input");
+          editInput.setAttribute("type", "text");
+          itemTask.append(editInput)
+          editInput.setAttribute("value", obj.taskValue);
+          itemTaskText.remove();
+          editInput.classList.add('edit');
+
+          editInput.addEventListener("change", () => {
+            let newTask = editInput.value;
+            arr[index].taskValue = newTask;
+            renderTask()
+          })
+        } else {
+          editInput.classList.remove('edit')
+        }
+      }
+    })
+  })
+
   return itemTask;
 }
-
 
 
 function renderTask() {
@@ -70,7 +99,12 @@ function renderTask() {
 renderTask(taskList)
 
 function deleteTask(id) {
+
   taskList = taskList.filter((el) => el.id !== id);
+    if (taskList.length == []) {
+      listContainer.style.display = "none";
+      document.getElementById("button-wrapper").style.display = "none";
+    }
   renderTask();
 }
 
